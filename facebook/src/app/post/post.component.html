@@ -1,1 +1,12 @@
-<p>post works!</p>
+<div class="card-header">
+  </div>
+  <div class="card-body">
+    <p>{{ post.autore }} </p>
+   <!-- right here -->
+    <p>{{post.testo}}</p>
+  </div>
+  <div class="card-footer">
+   <div class="btn-group">
+    <h5> {{ post.like }} Likes </h5> <a href (click)="voteUp()" class="btn btn-secondary"> upvote </a>
+    </div>
+  </div>
