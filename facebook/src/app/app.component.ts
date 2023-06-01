@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { Post } from './post/post.model';
+import { Post } from './models/post.model';
+import { ServiceResponse } from './models/serviceResponse.model';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -10,26 +13,27 @@ export class AppComponent {
   title = 'facebook';
 
   posts: Post[];
+  serviceResponse: ServiceResponse;
+  oServiceResponse: Observable<ServiceResponse>;
+  serviceURL: string = "https://my-json-server.typicode.com/PaoloCarugati/facebook/db";
 
-  constructor(){
-    this.posts = [
-      new Post("mario rossi", "questo è il primo post di mario rossi"),
-      new Post("antonio bianchi", "questo è il post di antonio bianchi"),
-      new Post("mario rossi", "questo è il secondo post di Mario Rossi")
-    ]
+  constructor(public http: HttpClient) {
+      this.makeTypedRequest()
   }
 
+  makeTypedRequest() : void
+  {
+    this.oServiceResponse = this.http.get<ServiceResponse>(this.serviceURL);
+    this.oServiceResponse.subscribe(d => {this.serviceResponse = d;});
+    this.posts = this.serviceResponse.data;
+  } 
+
   addPost(autore: HTMLInputElement, testo: HTMLInputElement): boolean {
-    console.log(`Adding post autore: ${autore.value} and testo: ${testo.value}`);
+    console.log(`Adding article title: ${autore.value} and link: ${testo.value}`);
     this.posts.push(new Post(autore.value, testo.value));
     //pulisco i campi della form
     autore.value = '';
     testo.value = '';
     return false;
   }
-
-  sortedPosts(): Post[] {
-    return this.posts.sort((a: Post, b: Post) => b.like - a.like);
-  }
-
 }
