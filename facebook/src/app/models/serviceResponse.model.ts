@@ -1,5 +1,6 @@
 import { Post } from "./post.model";
 
 export class ServiceResponse {
-    data: Post[];
+    posts: Post[];
+    comments: Comment[];
 }

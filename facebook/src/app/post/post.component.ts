@@ -7,16 +7,11 @@ import { Post } from '../models/post.model';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-  @HostBinding('attr.class') cssClass = 'card';
-  @Input() post: Post;
+  @Input() post: Post[];
 
   constructor() {
   }
 
-  voteUp(): Boolean {
-    this.post.add_like(); //Modificato qui 
-    return false;
-  }
 
   ngOnInit() {}
 

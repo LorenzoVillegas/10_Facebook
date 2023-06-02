@@ -12,8 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
   title = 'facebook';
 
-  posts: Post[];
-  serviceResponse: ServiceResponse;
+  data: ServiceResponse;
   oServiceResponse: Observable<ServiceResponse>;
   serviceURL: string = "https://my-json-server.typicode.com/PaoloCarugati/facebook/db";
 
@@ -24,16 +23,7 @@ export class AppComponent {
   makeTypedRequest() : void
   {
     this.oServiceResponse = this.http.get<ServiceResponse>(this.serviceURL);
-    this.oServiceResponse.subscribe(d => {this.serviceResponse = d;});
-    this.posts = this.serviceResponse.data;
+    this.oServiceResponse.subscribe(d => {this.data = d;});
   } 
 
-  addPost(autore: HTMLInputElement, testo: HTMLInputElement): boolean {
-    console.log(`Adding article title: ${autore.value} and link: ${testo.value}`);
-    this.posts.push(new Post(autore.value, testo.value));
-    //pulisco i campi della form
-    autore.value = '';
-    testo.value = '';
-    return false;
-  }
 }

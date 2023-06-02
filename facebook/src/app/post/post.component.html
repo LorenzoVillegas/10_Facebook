@@ -1,12 +1,13 @@
 <div class="card-header">
   </div>
-  <div class="card-body">
-    <p>{{ post.autore }} </p>
+  <div *ngFor = "let p of post"class="card-body">
+    <p>{{ p.autore }} </p>
    <!-- right here -->
-    <p>{{post.testo}}</p>
+    <p>{{p.testo}}</p>
+    <div class="card-footer">
+      <div class="btn-group">
+       <h5> {{ p.like }} Likes </h5> <a class="btn btn-secondary"> 🧡 </a>
+       </div>
   </div>
-  <div class="card-footer">
-   <div class="btn-group">
-    <h5> {{ post.like }} Likes </h5> <a href (click)="voteUp()" class="btn btn-secondary"> upvote </a>
-    </div>
+ 
   </div>
